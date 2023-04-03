@@ -82,6 +82,10 @@ public class Task {
         this.projectId = projectId;
     }
 
+    public long getProjectId() {
+        return projectId;
+    }
+
     /**
      * Returns the project associated to the task.
      *

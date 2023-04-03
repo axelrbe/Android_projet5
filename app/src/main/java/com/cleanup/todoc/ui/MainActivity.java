@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     private void setViewModel() {
         ViewModelFactory viewModelFactory = Injection.getViewModelFactory(this);
-        taskViewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskViewModel.class);
+        taskViewModel = new ViewModelProvider(this, viewModelFactory).get(TaskViewModel.class);
         taskViewModel.initList();
     }
 
@@ -180,11 +180,11 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             // If both project and name of the task have been set
             else if (taskProject != null) {
                 // TODO: Replace this by id of persisted task
-                long id = (long) (Math.random() * 50000);
+                // long id = (long) (Math.random() * 50000);
 
 
                 Task task = new Task(
-                        id,
+                        taskProject.getId(),
                         taskProject.getId(),
                         taskName,
                         new Date().getTime()
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dialogInterface.dismiss();
             }
         }
-        // If dialog is aloready closed
+        // If dialog is already closed
         else {
             dialogInterface.dismiss();
         }
@@ -279,7 +279,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
         // This instead of listener to positive button in order to avoid automatic dismiss
         dialog.setOnShowListener(dialogInterface -> {
-
             Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             button.setOnClickListener(view -> onPositiveButtonClick(dialog));
         });
