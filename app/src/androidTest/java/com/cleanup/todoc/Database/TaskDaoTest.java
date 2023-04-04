@@ -28,21 +28,18 @@ public class TaskDaoTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
     private TodocDatabase mTodocDatabase;
     private final Project[] projects = Project.getAllProjects();
-    private final Task task1 = new Task(projects[0].getId(), projects[0].getId(),"Task_Test 1", new Date().getTime());
-    private final Task task2 = new Task(projects[1].getId(), projects[0].getId(),"Task_Test 1", new Date().getTime());
-    private final Task task3 = new Task(projects[2].getId(), projects[1].getId(),"Task_Test 1", new Date().getTime());
+    private final Task task1 = new Task(projects[0].getId(),"Task_Test 1", new Date().getTime());
+    private final Task task2 = new Task(projects[1].getId(),"Task_Test 1", new Date().getTime());
+    private final Task task3 = new Task(projects[2].getId(),"Task_Test 1", new Date().getTime());
 
     @Before
-    public void initDatabase() throws InterruptedException {
+    public void initDatabase() {
         this.mTodocDatabase = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().getContext(),
                         TodocDatabase.class)
                 .allowMainThreadQueries()
                 .build();
 
         this.mTodocDatabase.projectDAO().insertAll(Project.getAllProjects());
-
-        List<Task> allTasks = LiveDataTestUtil.getValue(this.mTodocDatabase.taskDAO().getAllTasks());
-        assertTrue(allTasks.isEmpty());
     }
 
     @After
@@ -72,13 +69,14 @@ public class TaskDaoTest {
 
     @Test
     public void taskManagement_Delete() throws InterruptedException {
-        List<Project> allProjects = LiveDataTestUtil.getValue(this.mTodocDatabase.projectDAO().getAllProjects());
+        List<Task> allTasks = LiveDataTestUtil.getValue(this.mTodocDatabase.taskDAO().getAllTasks());
+        assertTrue(allTasks.isEmpty());
 
         this.mTodocDatabase.taskDAO().insertTask(this.task1);
         this.mTodocDatabase.taskDAO().insertTask(this.task2);
         this.mTodocDatabase.taskDAO().insertTask(this.task3);
 
-        List<Task> allTasks = LiveDataTestUtil.getValue(this.mTodocDatabase.taskDAO().getAllTasks());
+        allTasks = LiveDataTestUtil.getValue(this.mTodocDatabase.taskDAO().getAllTasks());
         assertEquals(3, allTasks.size());
 
         this.mTodocDatabase.taskDAO().deleteTask(allTasks.get(2));

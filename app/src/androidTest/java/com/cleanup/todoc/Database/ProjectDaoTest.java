@@ -44,9 +44,11 @@ public class ProjectDaoTest {
     public void projectManagement_Insert() throws InterruptedException {
         List<Project> allProjects = LiveDataTestUtil.getValue(this.mTodocDatabase.projectDAO().getAllProjects());
         assertTrue(allProjects.isEmpty());
-        this.mTodocDatabase.projectDAO().insertAll(Project.getAllProjects());
 
+        this.mTodocDatabase.projectDAO().insertAll(Project.getAllProjects());
         allProjects = LiveDataTestUtil.getValue(this.mTodocDatabase.projectDAO().getAllProjects());
+
+
         assertEquals(allProjects.get(0).getName(), Project.getAllProjects()[0].getName());
         assertEquals(allProjects.get(0).getName(), Project.getAllProjects()[0].getName());
         assertEquals(allProjects.get(0).getName(), Project.getAllProjects()[0].getName());
