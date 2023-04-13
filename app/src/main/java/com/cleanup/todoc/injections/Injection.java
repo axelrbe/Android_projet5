@@ -21,14 +21,14 @@ public class Injection {
         return new TaskRepository(db.taskDAO());
     }
 
-    public static Executor getExecutor(Context context) {
+    public static Executor getExecutor() {
         return Executors.newSingleThreadExecutor();
     }
 
     public static ViewModelFactory getViewModelFactory(Context context) {
         ProjectRepository projectRepository = getProjectRepository(context);
         TaskRepository taskRepository = getTaskRepository(context);
-        Executor executor = getExecutor(context);
+        Executor executor = getExecutor();
         return new ViewModelFactory(projectRepository, taskRepository, executor);
     }
 

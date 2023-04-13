@@ -23,8 +23,6 @@ public class TaskRepository {
         taskDAO.insertTask(task);
     }
 
-    public void updateTask(Task task) {taskDAO.updateTask(task);}
-
     public void deleteTask(Task task) {
         taskDAO.deleteTask(task);
     }

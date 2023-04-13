@@ -3,7 +3,6 @@ package com.cleanup.todoc.database.dao;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.cleanup.todoc.model.Project;
@@ -14,16 +13,10 @@ import java.util.List;
 public interface ProjectDAO {
 
     @Query("SELECT * FROM Project")
-    public LiveData<List<Project>> getAllProjects();
-
-    @Query("SELECT * FROM Project WHERE id = :projectId")
-    public LiveData<Project> getProject(long projectId);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public long insertProject(Project project);
+    LiveData<List<Project>> getAllProjects();
 
     @Insert
-    public void insertAll(Project... projects);
+    void insertAll(Project... projects);
 
 
 }

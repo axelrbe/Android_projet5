@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     private TextView lblNoTasks;
 
     private TaskViewModel taskViewModel;
-    private List<Project> projectList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         taskViewModel.getAllProjects().observe(this, this::updateProjects);
     }
 
-    private void updateProjects(List<Project> projects) {projectList = projects;}
+    private void updateProjects(List<Project> projects) {}
 
     private void getAllTasks() {
         taskViewModel.getAllTasks().observe(this, this::updateTasks);
